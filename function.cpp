@@ -10,14 +10,14 @@ Assignment 1:
 #include <iomanip> //fixed and setprecision 
 void printMenu(){
     //print the menu and how to order 
-    cout <<  " ---------------"
+    cout <<  " ---------------\n"
              "|Burger - $1.99 |\n"
              "|Fries - $0.99  |\n"
              "|Salad - $1.50  |\n"
              "|Hot Dog- $1.45 |\n"
              "|Drink - $0.80  |\n"
              " --------------" << endl;
-    cout <<  "----------------" 
+    cout <<  "----------------\n" 
          << "|b for burger    |\n"
          << "|f for fries     |\n" 
          << "|s for salad     |\n"
