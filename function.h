@@ -12,15 +12,16 @@ Assignment 1:
 #include <fstream> //ofstream 
 #include <iomanip> //fixed and setprecision 
 using namespace std; //std:: namespace 
-//protoype functions 
+//protoype functions
+//-----------------------------------------------------------------
 //return the total balance of the user 
-double totalAmount( int , int , int , int , int );
+double totalAmount(int item[5] );
 //will print the items based on the counter of each item 
-void printItemsSelected(int,int,int,int, int);
+void printItemsSelected(int item[5] );
 //update the items by passreferencing the variables 
-void updateItems(char , int , int &, int &, int &, int &, int &);
+void updateItems(char , int ,int item[5] );
 //print the menu
 void printMenu(void);
 //write to the file
-void writeToFile(ofstream& , double , int , int , int , int , int );
+void writeToFile(ofstream& , double ,int item[5]  );
 #endif
