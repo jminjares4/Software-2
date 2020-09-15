@@ -16,15 +16,15 @@ using namespace std; //std:: namespace
 //protoype functions
 //-----------------------------------------------------------------
 //return the total balance of the user 
-double totalAmount( int , int , int , int , int );
+double totalAmount(int item[5] );
 //will print the items based on the counter of each item 
-void printItemsSelected(int,int,int,int, int);
+void printItemsSelected(int item[5] );
 //update the items by passreferencing the variables 
-void updateItems(char , int , int &, int &, int &, int &, int &);
+void updateItems(char , int ,int item[5] );
 //print the menu
 void printMenu(void);
 //write to the file
-void writeToFile(ofstream& , double , int , int , int , int , int );
+void writeToFile(ofstream& , double ,int item[5]  );
 //-------------------------------------------------------------------
 int main(int argc, char* argv[]){
     if(argc < 2){ //check if the user enter the file name 
@@ -36,9 +36,7 @@ int main(int argc, char* argv[]){
     ofstream userFile (result + ".txt", ios::trunc ); //open a output file 
 
     //intialize counter of the each item 
-    int amount, burger, fries, salad, hotdog, drink;
-    //set the value at 0 
-    amount = burger = fries = salad = hotdog = drink = 0;
+    int item[5] = {0}, amount = 0;
     //char variable to get and store user decision 
     char userInput;
     double userTotalAmount;  //userTotalAmount will store user current balance 
@@ -52,11 +50,11 @@ int main(int argc, char* argv[]){
         while(userInput != 'e'){ //as long as the user do not end the order 
             cout << "You entered: " << userInput << endl;
             //update the items by passreference the variables 
-            updateItems(userInput, amount, burger, fries, salad,hotdog, drink);
+            updateItems(userInput, amount,item);
             //print the current selection of the user 
-            printItemsSelected(burger,fries, salad, hotdog, drink);
+            printItemsSelected(item);
             //get the user balance 
-            userTotalAmount = totalAmount(burger,fries,salad,hotdog, drink);
+            userTotalAmount = totalAmount(item);
             //print the user balance with 2 decimal places 
             cout << "TOTAL: $" << fixed << setprecision(2) << userTotalAmount << endl; 
             //print the menu
@@ -77,7 +75,7 @@ int main(int argc, char* argv[]){
     //print the balance of the user 
     cout << "TOTAL: $" << fixed << setprecision(2) << userTotalAmount << endl; 
     //write to the file by passing it pass reference 
-    writeToFile( userFile, userTotalAmount,  burger, fries, salad, hotdog, drink);
+    writeToFile( userFile, userTotalAmount,item);
     userFile.close(); //close the file 
    
 }
@@ -101,39 +99,40 @@ void printMenu(){
          <<  "----------------" << endl; 
 }
 //print the items if the items are greater than 0
-void printItemsSelected(int burger, int fries, int salad, int hotdog, int drink){
+void printItemsSelected(int item[5]){
     //if any of the items if >0, then print the corresponding amount 
-    if(burger > 0) cout << "b " << burger << endl;
-    if(fries > 0)  cout << "f " << fries << endl;
-    if(salad > 0)  cout << "s " << salad << endl;
-    if(hotdog > 0) cout << "h " << hotdog << endl;
-    if(drink > 0)  cout << "d " << drink << endl;
+    if(item[0] > 0) cout << "b " << item[0] << endl;
+    if(item[1] > 0)  cout << "f " << item[1] << endl;
+    if(item[2] > 0)  cout << "s " << item[2] << endl;
+    if(item[3] > 0) cout << "h " << item[3] << endl;
+    if(item[4] > 0)  cout << "d " << item[4] << endl;
     return;
 }
 //update the items value by pass referencing the variables 
-void updateItems(char letter, int amount, int &burger, int &fries, int &salad, int &hotdog, int &drink){
+void updateItems(char letter, int amount, int item[5]){
     //update the count of the item if exist in the 
     switch(letter){
-        case 'b': burger += amount; break;
-        case 's': salad += amount; break;
-        case 'h': hotdog += amount; break;
-        case 'd': drink += amount; break;
+        case 'b': item[0] += amount; break;
+        case 'f': item[1] += amount; break;
+        case 's': item[2] += amount; break;
+        case 'h': item[3] += amount; break;
+        case 'd': item[4] += amount; break;
         default: break;
     }
     return;
 }
 //return the balance of the user by multipling the items amounts by its corresponding value 
-double totalAmount( int burger, int fries, int salad, int hotdog, int drink){
-     return double(burger*1.99) + double(fries*0.99) + double(salad*1.50) + double(hotdog*1.45) + (double)drink*.80;
+double totalAmount(int item[5]){
+     return double(item[0]*1.99) + double(item[1]*0.99) + double(item[2]*1.50) + double(item[3]*1.45) + (double)item[4]*.80;
 }
 //write to the file 
-void writeToFile(ofstream& userFile, double amount, int burger, int fries, int salad, int hotdog, int drink){
+void writeToFile(ofstream& userFile, double amount, int item[5]){
     //if any of the items if >0, then print the corresponding amount  to the file
-    if(burger > 0) userFile << "b " << burger << endl;
-    if(fries > 0)  userFile << "f " << fries << endl;
-    if(salad > 0)  userFile << "s " << salad << endl;
-    if(hotdog > 0) userFile << "h " << hotdog << endl;
-    if(drink > 0)  userFile << "d " << drink << endl;
+    if(item[0] > 0) userFile << "b " << item[0] << endl;
+    if(item[1] > 0)  userFile << "f " << item[1] << endl;
+    if(item[2]> 0)  userFile << "s " << item[2] << endl;
+    if(item[3] > 0) userFile << "h " << item[3] << endl;
+    if(item[4] > 0)  userFile << "d " << item[4] << endl;
     userFile << "-------------------------" <<endl;
     userFile << "TOTAL: $" << fixed << setprecision(2) << amount << endl; 
     return;
