@@ -12,7 +12,6 @@ Assignment 1:
 #include <string.h> //string datatype 
 #include "function.h" //userdefine functions 
 using namespace std; //std:: namespace
-
 int main(int argc, char* argv[]){
     if(argc < 2){ //check if the user enter the file name 
         cout << "./main fileName" <<endl; //prompt excepted input 
@@ -23,9 +22,7 @@ int main(int argc, char* argv[]){
     ofstream userFile (result + ".txt", ios::trunc ); //open a output file 
 
     //intialize counter of the each item 
-    int amount, burger, fries, salad, hotdog, drink;
-    //set the value at 0 
-    amount = burger = fries = salad = hotdog = drink = 0;
+    int item[5] = {0}, amount = 0;
     //char variable to get and store user decision 
     char userInput;
     double userTotalAmount;  //userTotalAmount will store user current balance 
@@ -39,11 +36,11 @@ int main(int argc, char* argv[]){
         while(userInput != 'e'){ //as long as the user do not end the order 
             cout << "You entered: " << userInput << endl;
             //update the items by passreference the variables 
-            updateItems(userInput, amount, burger, fries, salad,hotdog, drink);
+            updateItems(userInput, amount,item);
             //print the current selection of the user 
-            printItemsSelected(burger,fries, salad, hotdog, drink);
+            printItemsSelected(item);
             //get the user balance 
-            userTotalAmount = totalAmount(burger,fries,salad,hotdog, drink);
+            userTotalAmount = totalAmount(item);
             //print the user balance with 2 decimal places 
             cout << "TOTAL: $" << fixed << setprecision(2) << userTotalAmount << endl; 
             //print the menu
@@ -64,7 +61,7 @@ int main(int argc, char* argv[]){
     //print the balance of the user 
     cout << "TOTAL: $" << fixed << setprecision(2) << userTotalAmount << endl; 
     //write to the file by passing it pass reference 
-    writeToFile( userFile, userTotalAmount,  burger, fries, salad, hotdog, drink);
+    writeToFile( userFile, userTotalAmount,item);
     userFile.close(); //close the file 
    
 }
